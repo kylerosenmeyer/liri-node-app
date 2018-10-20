@@ -1,16 +1,42 @@
 
-Song searched: Stairway%20To%20Heaven
+Artist searched: lady gaga
+The next show is at LADY GAGA ENIGMA. 
+City: Las Vegas. 
+Show Date: 12/28/2018.
+Date of search: 10/20/2018.
+
+Song searched: million reasons
+Artist: Lady Gaga. 
+Song: Million Reasons. 
+Album: Joanne (Deluxe). 
+Preview: null.
+Date of search: 10/20/2018.
+
+Movie searched: a star is born
+Title: A Star Is Born. 
+Release Year: 2018. 
+Rating: R. 
+Rotton Tomatoes Score: 94%. 
+Produced In: USA. 
+Language: English. 
+Plot: A musician helps a young singer find fame, even as age and alcoholism send his own career into a downward spiral.. 
+Actors: Lady Gaga, Bradley Cooper, Sam Elliott, Andrew Dice Clay.
+Date of search: 10/20/2018.
+
+Song searched: Stairway To Heaven
 Artist: Led Zeppelin. 
 Song: Stairway To Heaven. 
 Album: Led Zeppelin IV (Deluxe Edition). 
 Preview: https://p.scdn.co/mp3-preview/8226164717312bc411f8635580562d67e191a754?cid=2ed88e5cfad7400fa35b77a3d69ffa11.
+Date of search: 10/20/2018.
 
 Artist searched: Drake
 The next show is at The Forum. 
-in Los Angeles. 
-on 10/20/2018.
+City: Los Angeles. 
+Show Date: 10/20/2018.
+Date of search: 10/20/2018.
 
-Movie searched: Drake
+Movie searched: Mr. Nobody
 Title: Mr. Nobody. 
 Release Year: 2009. 
 Rating: R. 
@@ -19,3 +45,4 @@ Produced In: Belgium, Germany, Canada, France, USA, UK.
 Language: English, Mohawk. 
 Plot: A boy stands on a station platform as a train is about to leave. Should he go with his mother or stay with his father? Infinite possibilities arise from this decision. As long as he doesn't choose, anything is possible.. 
 Actors: Jared Leto, Sarah Polley, Diane Kruger, Linh Dan Pham.
+Date of search: 10/20/2018.
