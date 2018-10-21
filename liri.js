@@ -4,10 +4,13 @@ require("dotenv").config()
 //Use "concert-this" + artist/band to perform a concert search
 //Use "spotify-this-song" + song name to perform a music search
 //Use "movie-this" + movie title to perform a movie search
-//Use "do what it says" to let liri perform it's favorite searches.
+//Use "liris-favorites" to let liri perform it's favorite searches.
 
-//Declare a variable for the userRequest type and the content of the userRequest,
-//Also Declare constanst to require the installed NPMs
+//*Variable Declarations:
+//*userRequest is the type of search requested by the user.
+//*entertainment is the variable storing the users content request (with spaces)
+//*artist is the variable storing the users content request (with %20 spacing)
+//*movietitle is the variable storing the users content request (with + spacing)
 
 var userRequest = process.argv[2],
     entertainment = process.argv[3],
@@ -15,6 +18,7 @@ var userRequest = process.argv[2],
     movietitle = entertainment,
     log = []
 
+//*Declare constants to require the installed NPMs and keys.js file
 const request = require("request"),
       Spotify = require("node-spotify-api"),
       moment = require("moment"),
@@ -29,10 +33,11 @@ for ( let i=4; i<process.argv.length; i++ ) {
     movietitle += "+" + process.argv[i]
 }
 
-//The main functions here; concerts, music, movies; run the api requests.
-//Another function runs the log (logActivity)
-//Concerts is the BandsInTown api function
+//!The main functions here; concerts, music, movies; run the api requests.
+//!Another function runs the log (logActivity)
+//*Concerts is the BandsInTown api function
 var concerts = function() {
+
         var band = {
             apikey: safe.bandintown.apikey
         }
@@ -66,7 +71,7 @@ var concerts = function() {
                 }
             })
         },
-    //Music is the Spotify API function
+    //*Music is the Spotify API function
     music = function(e) {
 
         //This variable grabs the ids from the external .js file
@@ -98,7 +103,7 @@ var concerts = function() {
             }
         })
         },
-    //Movies is the OMDB API function
+    //*Movies is the OMDB API function
     movies = function(e) {
         if ( process.argv[3] === undefined ) {
             e = "Mr.+Nobody"
@@ -131,7 +136,7 @@ var concerts = function() {
         })
     },
 
-    //LogActivity is the function that writes the log.txt file.
+    //*LogActivity is the function that writes the log.txt file.
     logActivity = function () { 
 
         //If the user requested a concert, run the concert log.
@@ -185,67 +190,173 @@ var concerts = function() {
         }
         
     }
-//This section runs the main condition check on what the user is asking for.
-//This triggers the functions above accordingly.
 
-//Check the first condition, a concert search.
-if ( userRequest === "do-what-it-says") {
+//!This section runs the main condition check on what the user is asking for.
+//*This triggers the functions above accordingly.
+
+//*Check the first condition, a search for liris favorites.
+if ( userRequest === "liris-favorites") {
     fs.readFile("random.txt", "utf8", function(error, data) {
 
         if (error) {
           return console.log(error);
         } else {
 
+            //Add a title to the log file with divider.
+            fs.appendFile("log.txt", "\nThese are Liri\'s Favorites!\n-----------------------------------\n", function(err) {
+
+                // If the code experiences any errors it will log the error to the console.
+                if (err) {
+                  return console.log(err);
+                }
+              
+            }); 
+
+            //Grab liri's favorite song from the random.txt file
             setTimeout( function() {
 
                 console.log("\nThis is Liri's Favorite Song\n")
                 var getData = data.split(",")
                 userRequest = getData[0]
                 entertainment = getData[1]
-                // console.log(entertainment)
+
+                //Pass the liri's favorite song into the songs search function.
                 music(entertainment)
+
+                //Grab liri's favorite artist from the random.txt file
+                setTimeout( function() {
+
+                    console.log("\nThis is Liri's Favorite Concert Coming Up\n")
+                    var getData = data.split(",")
+                    userRequest = getData[2]
+                    artist = getData[3]
+                    entertainment = artist
+
+                    //Pass the liri's favorite artist into the concerts search function.
+                    concerts(artist)
+
+                    //Grab liri's favorite movie from the random.txt file
+                    setTimeout( function() {
+
+                        console.log("\nThis is Liri's Favorite Movie\n")
+                        var getData = data.split(",")
+                        userRequest = getData[4]
+                        movietitle = getData[5]
+                        entertainment = movietitle
+
+                        //Pass the liri's favorite movie into the movie search function.
+                        movies(entertainment)
+                        
+                        //Add bottom divider to the log file.
+                        setTimeout( function() {
+
+                            fs.appendFile("log.txt", "\n-----------------------------------\n", function(err) {
+
+                                // If the code experiences any errors it will log the error to the console.
+                                if (err) {
+                                  return console.log(err);
+                                }
+                              
+                            });
+
+                        }, 1000)
+                        
+                    }, 1000)
+    
+                }, 1000)
 
             }, 1000)
 
-            setTimeout( function() {
-
-                console.log("\nThis is Liri's Favorite Concert Coming Up\n")
-                var getData = data.split(",")
-                userRequest = getData[2]
-                artist = getData[3]
-                entertainment = artist
-                console.log(artist)
-                concerts(artist)
-
-            }, 2000)
-
-            setTimeout( function() {
-
-                console.log("\nThis is Liri's Favorite Movie\n")
-                var getData = data.split(",")
-                userRequest = getData[4]
-                movietitle = getData[5]
-                entertainment = movietitle
-                movies(entertainment)
-
-            }, 3000)
             
         }
-        
-        
-     
       });
+
+//*Check the second condition, a concert search.
 }else if ( userRequest === "concert-this" ) {
+    
+    //Add a title to the log file with divider.
+    fs.appendFile("log.txt", "\nUser Concert Search\n-----------------------------------\n", function(err) {
 
+        // If the code experiences any errors it will log the error to the console.
+        if (err) {
+          return console.log(err);
+        }
+      
+    });
+
+    //Pass the artist into the concerts search function.
     concerts(artist)
+    
+    //Add bottom divider to the log file.
+    setTimeout( function() {
 
-//Check the second condition, a song search.
+        fs.appendFile("log.txt", "\n-----------------------------------\n", function(err) {
+
+            // If the code experiences any errors it will log the error to the console.
+            if (err) {
+              return console.log(err);
+            }
+          
+        });
+    },1500)
+    
+
+//*Check the third condition, a song search.
 } else if ( userRequest === "spotify-this-song" ) {
     
+    //Add a title to the log file with divider.
+    fs.appendFile("log.txt", "\nUser Song Search\n-----------------------------------\n", function(err) {
+
+        // If the code experiences any errors it will log the error to the console.
+        if (err) {
+          return console.log(err);
+        }
+      
+    });
+
+    //Pass the entertainment into the songs search function.
     music(entertainment)
 
-//Check the third condition, a movie search.
+    //Add bottom divider to the log file.
+    setTimeout( function() {
+
+        fs.appendFile("log.txt", "\n-----------------------------------\n", function(err) {
+
+            // If the code experiences any errors it will log the error to the console.
+            if (err) {
+              return console.log(err);
+            }
+          
+        });
+    },1500)
+
+//*Check the fourth condition, a movie search.
 } else if ( userRequest === "movie-this" ) {
 
-   movies(movietitle)
+    //Add a title to the log file with divider.
+    fs.appendFile("log.txt", "\nUser Movie Search\n-----------------------------------\n", function(err) {
+
+        // If the code experiences any errors it will log the error to the console.
+        if (err) {
+          return console.log(err);
+        }
+      
+    });
+
+    //Pass the movie title into the movie search function.
+    movies(movietitle)
+
+    //Add bottom divider to the log file.
+    setTimeout( function() {
+
+        fs.appendFile("log.txt", "\n-----------------------------------\n", function(err) {
+
+            // If the code experiences any errors it will log the error to the console.
+            if (err) {
+              return console.log(err);
+            }
+          
+        });
+    },1500)
+
 }
