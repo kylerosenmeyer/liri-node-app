@@ -1,4 +1,5 @@
 # liri-node-app
+![Liri-Bot](/images/liri_bot.jpeg)
 
 Coding Bootcamp HW10 by Kyle Rosenmeyer
 
@@ -24,7 +25,8 @@ log.txt Example showing one output from each type of search.
 
 User walkthrough video:
 
-![Video](/images/walkthrough.webm)
+[Click Here to View/Download](/images/walkthrough.webm)
+
 
 
 
