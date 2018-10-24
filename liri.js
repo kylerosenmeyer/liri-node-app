@@ -103,21 +103,24 @@ var concerts = function() {
             }
         })
         },
+
     //*Movies is the OMDB API function
     movies = function(e) {
         if ( process.argv[3] === undefined ) {
             e = "Mr.+Nobody"
         }
-    
+        
+        //This builds the API Call
         let movieSearch = "http://www.omdbapi.com/?apikey=trilogy&t=" + e,
             options = {
                 url: movieSearch,
                 method: "GET",
                 "content-type": "application/json"
             }
-        
+        // This executes the API Call
         request(options, function(err, response, body) {
             
+            // If no error, parse the body, push the elements into the log array, and run the log Activity.
             if (err) {
                 return console.log("Houston, we have a problem: " + err)
             } else {
@@ -144,6 +147,7 @@ var concerts = function() {
 
             var logConcert = ("\nThe next show is at " + log[0] + ". \nCity: " + log[1]+ ". \nShow Date: " + log[2] + ".\nDate of search: " + moment().format("MM/DD/YYYY") + ".\n")
 
+            // This code snippet appends the user's concert search to the log file.
             fs.appendFile("log.txt", "\nArtist searched: " + entertainment + logConcert, function(err) {
 
                 // If the code experiences any errors it will log the error to the console.
@@ -161,6 +165,7 @@ var concerts = function() {
 
             var logSong = ("\nArtist: " + log[0] + ". \nSong: " + log[1]+ ". \nAlbum: " + log[2] + ". \nPreview: " + log[3] + ".\nDate of search: " + moment().format("MM/DD/YYYY") + ".\n")
 
+            // This code snippet appends the user's song search to the log file.
             fs.appendFile("log.txt", "\nSong searched: " + entertainment + logSong, function(err) {
 
                 // If the code experiences any errors it will log the error to the console.
@@ -176,7 +181,10 @@ var concerts = function() {
 
         //if the user requested a movie, run the movie log.
         } else if (userRequest === "movie-this" ) {
+
             var logMovie = ("\nTitle: " + log[0] + ". \nRelease Year: " + log[1] + ". \nRating: " + log[2] + ". \nRotton Tomatoes Score: " + log[3] + ". \nProduced In: " + log[4] + ". \nLanguage: " + log[5] + ". \nPlot: " + log[6] + ". \nActors: " + log[7] +".\nDate of search: " + moment().format("MM/DD/YYYY") + ".\n")
+
+            // This code snippet appends the user's movie search to the log file.
             fs.appendFile("log.txt", "\nMovie searched: " + entertainment + logMovie, function(err) {
 
                 // If the code experiences any errors it will log the error to the console.
@@ -196,6 +204,8 @@ var concerts = function() {
 
 //*Check the first condition, a search for liris favorites.
 if ( userRequest === "liris-favorites") {
+
+    //Read Liri's Favorites from the random.txt file.
     fs.readFile("random.txt", "utf8", function(error, data) {
 
         if (error) {
